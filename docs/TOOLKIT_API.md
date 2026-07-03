@@ -10,7 +10,7 @@ anything about which events are faulty, only how each check is computed.
 |---|---|---|
 | `batch_profile(batch_id)` | 1.0 | `{row_count, null_rate:{customer_id}, mean_amount, std_amount, staleness_min}` |
 | `contract_diff(contract_id, checkpoint_batch_id)` | 1.5 | `{freshness_delay_min, violations: [...]}` |
-| `lineage_graph_slice(run_id, depth=1)` | 1.0 × depth | `{duration_ms, actual_upstream, actual_downstream_count}` |
+| `lineage_graph_slice(run_id)` | 1.0 | `{duration_ms, actual_upstream, actual_downstream_count}` |
 | `feature_drift(feature_view, ref)` | 2.0 | `{serve_mean, train_mean, train_std, mean_shift_sigma}` |
 | `embedding_drift(corpus, ref)` | 2.0 | `{centroid_shift, avg_doc_age_days}` |
 | `spend_so_far()` | free | running total cost |
@@ -39,3 +39,10 @@ bare numbers.
 
 A plain dict, yours to use, that persists for your whole run (one process, one
 run). Free to read/write — no RPC cost.
+
+## Debugging
+
+`defense.py` has no file I/O and stdout is the RPC channel to the harness —
+`print()` there will desync the run. **`sys.stderr` is yours for debug
+output** (e.g. `print(payload, file=sys.stderr)`); it's never scored or
+inspected, purely for your own local troubleshooting.

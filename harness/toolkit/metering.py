@@ -62,7 +62,7 @@ class ServerToolkit:
             violations.append("type_violation")
         return {"freshness_delay_min": gt["freshness_delay_min"], "violations": violations}
 
-    def lineage_graph_slice(self, run_id, depth=1):
+    def lineage_graph_slice(self, run_id):
         self._charge("lineage_graph_slice")
         gt = self._gt.get(("lineage_run", run_id))
         if gt is None:
