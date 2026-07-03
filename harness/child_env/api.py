@@ -37,8 +37,8 @@ class ToolkitProxy:
     def contract_diff(self, contract_id, checkpoint_batch_id):
         return self._call("contract_diff", contract_id=contract_id, checkpoint_batch_id=checkpoint_batch_id)
 
-    def lineage_graph_slice(self, run_id, depth=1):
-        return self._call("lineage_graph_slice", run_id=run_id, depth=depth)
+    def lineage_graph_slice(self, run_id):
+        return self._call("lineage_graph_slice", run_id=run_id)
 
     def feature_drift(self, feature_view, ref):
         return self._call("feature_drift", feature_view=feature_view, ref=ref)
